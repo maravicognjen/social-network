@@ -1,14 +1,8 @@
 from app import db
 from datetime import datetime
 
-class Message(db.Model):
+class FriendRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.Text, nullable=False)
-
-    created_at = db.Column(
-        db.DateTime,
-        default=datetime.utcnow
-    )
 
     sender_id = db.Column(
         db.Integer,
@@ -20,4 +14,14 @@ class Message(db.Model):
         db.Integer,
         db.ForeignKey("users.id"),
         nullable=False
+    )
+
+    status = db.Column(
+        db.String(20),
+        default="PENDING"
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
     )
