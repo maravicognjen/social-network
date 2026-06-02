@@ -1,21 +1,16 @@
-from flask import Blueprint, request, jsonify
-from extensions import db
-from models import User
+from flask import Blueprint
 
-auth = Blueprint("auth", __name__)
+auth_bp = Blueprint("auth",__name__)
 
-@auth.route("/register", methods=["POST"])
+@auth_bp.route("/login")
+def login():
+    return "Login page"
+
+@auth_bp.route("/register")
 def register():
-    data = request.json
+    return "Register page"
 
-    user = User(
-        username=data["username"],
-        email=data["email"],
-        password=data["password"],
-        first_name=data.get("first_name")
-    )
+@auth_bp.route("/logout")
+def logout():
+    return "Logout"
 
-    db.session.add(user)
-    db.session.commit()
-
-    return jsonify({"message": "User created"}), 201
