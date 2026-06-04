@@ -12,9 +12,9 @@ def profile(user_id):
         return jsonify({"error":" User not found!"}),404
     
     return jsonify({
-        "id:":user.id,
-        "username:" : user.username,
-        "email:" : user.email
+        "id":user.id,
+        "username" : user.username,
+        "email" : user.email
     })
 
 @users_bp.route("/edit-profile/<int:user_id>",methods=["PUT"])
@@ -45,9 +45,9 @@ def search_users():
     users = User.query.filter(User.username.ilike(f"%[query]%")).all()
 
     return jsonify([{
-        "id:" : u.id,
-        "username:" : u.username,
-        "email:" : u.email
+        "id" : u.id,
+        "username" : u.username,
+        "email" : u.email
     }
     for u in users
     ])
