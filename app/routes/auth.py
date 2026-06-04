@@ -61,23 +61,5 @@ def login():
         "message": "Login successful",
         "user_id": user.id
     })
-@auth_bp.route("/login", methods=["POST"])
-def login():
-    data = request.get_json()
 
-    email = data.get("email")
-    password = data.get("password")
-
-    user = User.query.filter_by(email=email).first()
-
-    if not user:
-        return jsonify({"error": "Invalid credentials"}), 401
-
-    if not check_password_hash(user.password, password):
-        return jsonify({"error": "Invalid credentials"}), 401
-
-    return jsonify({
-        "message": "Login successful",
-        "user_id": user.id
-    })
 
