@@ -2,6 +2,7 @@ from app import db
 from datetime import datetime
 
 class Comment(db.Model):
+    __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key = True)
     text = db.Column(db.Text,nullable = False)
 

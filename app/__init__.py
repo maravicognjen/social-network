@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(admin_bp,url_prefix="/admin")
 
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:Krofna123.@localhost:5432/social_network"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:Krofna123.@localhost:6666/social_network"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
