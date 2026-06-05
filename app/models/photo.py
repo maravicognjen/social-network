@@ -5,7 +5,7 @@ class Photo(db.Model):
     __tablename__ = "photos"
     id = db.Column(db.Integer,primary_key = True)
     image = db.Column(db.String(255),nullable = False)
-    descretion = db.Column(db.Text)
+    description = db.Column(db.Text)
 
     created_at = db.Column(
         db.DateTime,
