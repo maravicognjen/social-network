@@ -40,7 +40,6 @@ def register():
         "message": "User registered successfully"
     }), 201
 
-from werkzeug.security import check_password_hash
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
