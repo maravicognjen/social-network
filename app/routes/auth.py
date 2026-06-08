@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash,check_password_hash
-
+from flask_login import login_user
 from app import db
 from app.models.user import User
 
@@ -48,6 +48,9 @@ def login():
     email = data.get("email")
     password = data.get("password")
 
+    if not email or not password:
+        return jsonify({"error": "Email and password required"}), 400
+
     user = User.query.filter_by(email=email).first()
 
     if not user:
@@ -56,7 +59,16 @@ def login():
     if not check_password_hash(user.password, password):
         return jsonify({"error": "Invalid password"}), 401
 
+    login_user(user)
+
     return jsonify({
         "message": "Login successful",
         "user_id": user.id
     })
+
+from app import login_manager
+from app.models.user import User
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))

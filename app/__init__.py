@@ -1,17 +1,20 @@
 from flask import Flask, send_from_directory
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 db = SQLAlchemy()
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
 
-    
+    app.config["SECRET_KEY"] = "Ognjen123"
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:Krofna123.@localhost:6666/social_network"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
+    login_manager.init_app(app)
 
     UPLOAD_FOLDER = os.path.abspath(os.path.join(os.getcwd(), "uploads"))
 
