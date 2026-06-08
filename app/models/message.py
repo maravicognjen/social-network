@@ -22,3 +22,8 @@ class Message(db.Model):
         db.ForeignKey("users.id"),
         nullable=False
     )
+    is_admin_message = db.Column(
+    db.Boolean,
+    default=False,
+    nullable=False
+    )
