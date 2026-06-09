@@ -14,4 +14,5 @@ class User(UserMixin,db.Model):
     role = db.Column(db.String(20), default="USER")
     profile_image = db.Column(db.String(255))
     is_private = db.Column(db.Boolean, default=False)
+    is_blocked = db.Column(db.Boolean, default=False)
 

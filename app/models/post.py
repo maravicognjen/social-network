@@ -18,3 +18,5 @@ class Post(db.Model):
         db.ForeignKey("users.id"),
         nullable=False
     )
+
+    deleted_at = db.Column(db.DateTime, nullable=True)
