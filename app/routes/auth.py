@@ -1,6 +1,6 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify,session
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import login_user
+from flask_login import login_user,logout_user
 from app import db
 from app.models.user import User
 
@@ -10,12 +10,43 @@ auth_bp = Blueprint("auth", __name__)
 def register():
     data = request.get_json()
 
-    username = data.get("username")
-    email = data.get("email")
-    password = data.get("password")
+    username = (data.get("username") or "").strip()
+    email = (data.get("email") or "").strip()
+    first_name = (data.get("first_name") or "").strip()
+    last_name = (data.get("last_name") or "").strip()
+    gender = (data.get("gender") or "").strip()
+    password = data.get("password") or ""
+    confirm_password = data.get("confirm_password") or ""
 
-    if not username or not email or not password:
-        return jsonify({"error": "All fields are required"}), 400
+    errors = {}
+
+    if not username:
+        errors["username"] = "Username is required"
+    
+    if not email:
+        errors["email"] = "Email is required"
+
+    if not first_name:
+        errors["first_name"] = "Frist name is required"
+
+    if not last_name:
+        errors["last_name"] = "Last name is required"
+    
+    if not gender:
+        errors["gender"] = "Gender is required"
+
+    if not password:
+        errors["password"] = "Password is required"
+    elif len(password)< 4 :
+        errors["password"] = "Pasword must be at least 4 characters long"
+
+    if not confirm_password:
+        errors["confirm_password"] = "Confirm password is requried"
+    elif password !=confirm_password:
+        errors["confirm_password"] = "Password do not match"
+
+    if errors:
+        return jsonify({"errors": errors}),400
 
     existing_user = User.query.filter(
         (User.username == username) |
@@ -30,6 +61,9 @@ def register():
     user = User(
         username=username,
         email=email,
+        first_name=first_name,
+        last_name=last_name,
+        gender=gender,
         password=hashed_password
     )
 
@@ -65,6 +99,15 @@ def login():
         "message": "Login successful",
         "user_id": user.id
     })
+
+@auth_bp.route("/logout", methods=["POST"])
+def logout():
+    session.clear()
+    logout_user()
+
+    return jsonify({
+        "message": "Successfully logged out"
+    }), 200
 
 from app import login_manager
 from app.models.user import User
