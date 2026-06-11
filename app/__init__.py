@@ -30,6 +30,7 @@ def create_app():
     from app.routes.friends import friends_bp
     from app.routes.messages import messages_bp
     from app.routes.admin import admin_bp
+    from app.routes.profile import profile_bp
 
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(users_bp, url_prefix="/users")
@@ -38,5 +39,6 @@ def create_app():
     app.register_blueprint(friends_bp, url_prefix="/friends")
     app.register_blueprint(messages_bp, url_prefix="/messages")
     app.register_blueprint(admin_bp, url_prefix="/admin")
+    app.register_blueprint(profile_bp, url_prefix="/profile")
 
     return app
