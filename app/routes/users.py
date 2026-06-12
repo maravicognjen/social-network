@@ -17,23 +17,7 @@ def profile(user_id):
         "email" : user.email
     })
 
-@users_bp.route("/edit-profile/<int:user_id>",methods=["PUT"])
-def edit_profile(user_id):
-    user = User.query.get(user_id)
 
-    if not user:
-        return jsonify({"error":" User not found!"}),404
-    
-    data = request.json
-
-    if "username" in data:
-        user.username = data["username"]
-    if "email" in data:
-        user.email = data["email"]
-    
-    db.session.commit()
-
-    return jsonify({"messege":"Profile updated"})
 
 @users_bp.route("/search")
 def search_users():
@@ -42,7 +26,7 @@ def search_users():
     if not query:
         return jsonify({"error":"Missing query parametar"}),400
     
-    users = User.query.filter(User.username.ilike(f"%[query]%")).all()
+    users = User.query.filter(User.username.ilike(f"%{query}%")).all()
 
     return jsonify([{
         "id" : u.id,
@@ -51,3 +35,10 @@ def search_users():
     }
     for u in users
     ])
+
+
+from flask import render_template
+
+@users_bp.route("/users-page")
+def users_page():
+    return render_template("users.html")

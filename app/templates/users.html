@@ -1,0 +1,11 @@
+<h2 id="username"></h2>
+<p id="email"></p>
+
+<input id="searchInput" placeholder="Search users">
+<button onclick="searchUsers()">Search</button>
+
+<ul id="results"></ul>
+
+<button onclick="loadProfile(1)">Load Profile (test)</button>
+
+<script src="{{ url_for('static', filename='js/user.js') }}"></script>
