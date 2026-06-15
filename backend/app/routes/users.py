@@ -37,8 +37,4 @@ def search_users():
     ])
 
 
-from flask import render_template
 
-@users_bp.route("/users-page")
-def users_page():
-    return render_template("users.html")

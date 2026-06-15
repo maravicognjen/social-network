@@ -2,12 +2,15 @@ from flask import Flask, send_from_directory
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_cors import CORS
 
 db = SQLAlchemy()
 login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(app, supports_credentials=True)
 
     app.config["SECRET_KEY"] = "Ognjen123"
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:Krofna123.@localhost:6666/social_network"
