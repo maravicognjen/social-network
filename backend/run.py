@@ -1,5 +1,4 @@
-from app import create_app
-from app import db
+from app import create_app, db
 
 from app.models.user import User
 from app.models.post import Post
@@ -12,8 +11,6 @@ app = create_app()
 
 with app.app_context():
     db.create_all()
-
-
 
 @app.route("/")
 def home():
