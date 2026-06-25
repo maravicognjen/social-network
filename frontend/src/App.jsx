@@ -33,35 +33,35 @@ function App() {
       <AuthProvider>
         <Routes>
 
-          {/* AUTH */}
+          
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* USER */}
+          
           <Route path="/" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/change-password" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
           <Route path="/search" element={<PrivateRoute><SearchUsers /></PrivateRoute>} />
 
-          {/* POSTS */}
+          
           <Route path="/posts" element={<PrivateRoute><PostList /></PrivateRoute>} />
           <Route path="/posts/create" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
           <Route path="/posts/:id" element={<PrivateRoute><PostDetail /></PrivateRoute>} />
 
-          {/* PHOTOS */}
+          
           <Route path="/photos" element={<PrivateRoute><PhotoList /></PrivateRoute>} />
           <Route path="/photos/upload" element={<PrivateRoute><UploadPhoto /></PrivateRoute>} />
           <Route path="/photos/:id" element={<PrivateRoute><PhotoDetail /></PrivateRoute>} />
 
-          {/* MESSAGES */}
+          
           <Route path="/messages" element={<PrivateRoute><ConversationList /></PrivateRoute>} />
           <Route path="/messages/:userId" element={<PrivateRoute><ChatWindow /></PrivateRoute>} />
 
-          {/* FRIENDS */}
+          
           <Route path="/friends" element={<PrivateRoute><FriendList /></PrivateRoute>} />
           <Route path="/friends/send" element={<PrivateRoute><SendRequest /></PrivateRoute>} />
           <Route path="/friends/requests" element={<PrivateRoute><PendingRequests /></PrivateRoute>} />
 
-          {/* ADMIN */}
+          
           <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
           <Route path="/admin/users/:userId/posts" element={<AdminRoute><UserPosts /></AdminRoute>} />
           <Route path="/admin/users/:userId/photos" element={<AdminRoute><UserPhotos /></AdminRoute>} />
