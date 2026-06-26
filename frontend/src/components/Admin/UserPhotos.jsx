@@ -8,6 +8,10 @@ export default function UserPhotos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // 🔥 modal state
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [reason, setReason] = useState('');
+
   const fetchPhotos = async () => {
     try {
       const res = await API.get(`/admin/users/${userId}/photos`);
@@ -23,23 +27,37 @@ export default function UserPhotos() {
     fetchPhotos();
   }, [userId]);
 
-  const deletePhoto = async (photoId) => {
-    const reason = prompt('Enter reason for deletion:');
-    if (!reason) return;
+  // 🔥 open modal
+  const openDeleteModal = (photoId) => {
+    setSelectedPhoto(photoId);
+    setReason('');
+  };
+
+  // 🔥 confirm delete
+  const confirmDelete = async () => {
+    if (!reason.trim()) {
+      alert('Reason is required!');
+      return;
+    }
 
     try {
-      await API.delete(`/admin/delete-photo/${photoId}`, {
-        data: { reason },
+      await API.delete(`/admin/delete-photo/${selectedPhoto}`, {
+        data: { reason: reason.trim() },
       });
 
-      setPhotos((prev) => prev.filter((p) => p.id !== photoId));
+      setPhotos((prev) =>
+        prev.filter((p) => p.id !== selectedPhoto)
+      );
+
+      setSelectedPhoto(null);
+      setReason('');
     } catch (err) {
+      console.log(err.response?.data);
       alert('Failed to delete photo.');
     }
   };
 
   if (loading) return <p>Loading photos...</p>;
-
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
@@ -67,11 +85,57 @@ export default function UserPhotos() {
 
               <p>{p.description}</p>
 
-              <button onClick={() => deletePhoto(p.id)}>
+              <button onClick={() => openDeleteModal(p.id)}>
                 Delete (Admin)
               </button>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* 🔥 MODAL */}
+      {selectedPhoto && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.6)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 9999,
+          }}
+        >
+          <div
+            style={{
+              background: 'white',
+              padding: '20px',
+              borderRadius: '8px',
+              width: '300px',
+            }}
+          >
+            <h3>Delete Photo</h3>
+
+            <textarea
+              placeholder="Enter reason..."
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              style={{ width: '100%', height: '80px' }}
+            />
+
+            <br /><br />
+
+            <button onClick={confirmDelete} style={{ marginRight: '10px' }}>
+              Confirm
+            </button>
+
+            <button onClick={() => setSelectedPhoto(null)}>
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>

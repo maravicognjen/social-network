@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import API from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export default function CreatePost() {
+  const { user } = useAuth(); 
+
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -13,17 +16,23 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+
     setError('');
     setLoading(true);
+
+    
 
     try {
       await API.post('/posts/create', {
         text,
         image,
+        user_id: user?.id, 
       });
 
       navigate('/posts');
     } catch (err) {
+      console.error(err);
       setError('Failed to create post.');
     } finally {
       setLoading(false);

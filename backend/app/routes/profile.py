@@ -17,6 +17,7 @@ def get_profile():
     user = current_user
 
     return jsonify({
+        "id": user.id,
         "username": user.username,
         "email": user.email,
         "first_name": user.first_name,
@@ -24,7 +25,8 @@ def get_profile():
         "birth_date": user.birth_date.isoformat() if user.birth_date else None,
         "gender": user.gender,
         "profile_image": user.profile_image,
-        "is_private": user.is_private
+        "is_private": user.is_private,
+        "role": user.role
     }),200
 
 @profile_bp.route("", methods=["PUT"])

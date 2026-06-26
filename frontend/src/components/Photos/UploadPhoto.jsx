@@ -23,6 +23,7 @@ export default function UploadPhoto() {
     const formData = new FormData();
     formData.append('image', file);
     formData.append('description', description);
+    formData.append('user_id', user?.id);
 
     try {
       await API.post('/photos/upload', formData, {

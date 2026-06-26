@@ -30,7 +30,7 @@ export default function Register() {
     try {
       await register(form);
 
-      // reset forme nakon uspeha
+      
       setForm({
         username: "",
         email: "",
@@ -124,7 +124,7 @@ export default function Register() {
 
         <button type="submit">Register</button>
 
-        {/* backend validation errors */}
+        
         {Object.values(errors).map((err, i) => (
           <p key={i} style={{ color: "red", margin: "5px 0" }}>
             {err}

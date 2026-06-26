@@ -38,33 +38,172 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           
-          <Route path="/" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/change-password" element={<PrivateRoute><ChangePassword /></PrivateRoute>} />
-          <Route path="/search" element={<PrivateRoute><SearchUsers /></PrivateRoute>} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/change-password"
+            element={
+              <PrivateRoute>
+                <ChangePassword />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/search"
+            element={
+              <PrivateRoute>
+                <SearchUsers />
+              </PrivateRoute>
+            }
+          />
 
           
-          <Route path="/posts" element={<PrivateRoute><PostList /></PrivateRoute>} />
-          <Route path="/posts/create" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
-          <Route path="/posts/:id" element={<PrivateRoute><PostDetail /></PrivateRoute>} />
+          <Route
+            path="/posts"
+            element={
+              <PrivateRoute>
+                <PostList />
+              </PrivateRoute>
+            }
+          />
 
-          
-          <Route path="/photos" element={<PrivateRoute><PhotoList /></PrivateRoute>} />
-          <Route path="/photos/upload" element={<PrivateRoute><UploadPhoto /></PrivateRoute>} />
-          <Route path="/photos/:id" element={<PrivateRoute><PhotoDetail /></PrivateRoute>} />
+          <Route
+            path="/posts/create"
+            element={
+              <PrivateRoute>
+                <CreatePost />
+              </PrivateRoute>
+            }
+          />
 
-          
-          <Route path="/messages" element={<PrivateRoute><ConversationList /></PrivateRoute>} />
-          <Route path="/messages/:userId" element={<PrivateRoute><ChatWindow /></PrivateRoute>} />
+          <Route
+            path="/posts/:id"
+            element={
+              <PrivateRoute>
+                <PostDetail />
+              </PrivateRoute>
+            }
+          />
 
-          
-          <Route path="/friends" element={<PrivateRoute><FriendList /></PrivateRoute>} />
-          <Route path="/friends/send" element={<PrivateRoute><SendRequest /></PrivateRoute>} />
-          <Route path="/friends/requests" element={<PrivateRoute><PendingRequests /></PrivateRoute>} />
+          {/* Photos */}
+          <Route
+            path="/photos"
+            element={
+              <PrivateRoute>
+                <PhotoList />
+              </PrivateRoute>
+            }
+          />
 
-          
-          <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
-          <Route path="/admin/users/:userId/posts" element={<AdminRoute><UserPosts /></AdminRoute>} />
-          <Route path="/admin/users/:userId/photos" element={<AdminRoute><UserPhotos /></AdminRoute>} />
+          <Route
+            path="/photos/upload"
+            element={
+              <PrivateRoute>
+                <UploadPhoto />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/photos/:id"
+            element={
+              <PrivateRoute>
+                <PhotoDetail />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Messages */}
+          <Route
+            path="/messages"
+            element={
+              <PrivateRoute>
+                <ConversationList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/messages/:userId"
+            element={
+              <PrivateRoute>
+                <ChatWindow />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Friends */}
+          <Route
+            path="/friends"
+            element={
+              <PrivateRoute>
+                <FriendList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/friends/send"
+            element={
+              <PrivateRoute>
+                <SendRequest />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/friends/requests"
+            element={
+              <PrivateRoute>
+                <PendingRequests />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Admin */}
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                <AdminUsers />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/users/:userId/posts"
+            element={
+              <AdminRoute>
+                <UserPosts />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/users/:userId/photos"
+            element={
+              <AdminRoute>
+                <UserPhotos />
+              </AdminRoute>
+            }
+          />
 
         </Routes>
       </AuthProvider>

@@ -11,7 +11,9 @@ os.makedirs(UPLOAD_FOLDER,exist_ok=True)
 
 @photos_bp.route("/",methods=["GET"])
 def all_photos():
-    photos = Photo.query.order_by(Photo.id.desc()).all()
+    photos = Photo.query.filter(
+        Photo.deleted_at.is_(None)
+    ).order_by(Photo.id.desc()).all()
 
     result = []
     for photo in photos:
@@ -27,6 +29,10 @@ def all_photos():
 
 @photos_bp.route("/upload", methods=["POST"])
 def upload_photo():
+    user_id = request.form.get("user_id")
+
+    if not user_id:
+        return jsonify({"error": "user_id missing"}), 400
     if "image" not in request.files:
         return jsonify({"error": "No file provided"}), 400
 
